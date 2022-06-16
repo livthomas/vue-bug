@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div ref="root" class="hello" @click="onClick">
     <h1>{{ msg }}</h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
@@ -30,13 +30,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import {computed, defineComponent, ref, watch} from 'vue';
 
 export default defineComponent({
   name: 'HelloWorld',
   props: {
     msg: String,
   },
+  setup() {
+    const root = ref<HTMLDivElement | null>(null);
+
+    const onClick = () => console.log(root.value?.offsetWidth);
+
+    return {onClick, root};
+  }
 });
 </script>
 
